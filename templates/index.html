@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fix Training Data</title>
+</head>
+
+<body>
+    <h1>Training Data Validation</h1>
+    <ul id="listContainer"></ul>
+    <button onclick=getid()>next</button>
+    <button onclick=sendApi()>click</button>
+
+
+
+
+
+    <script>
+        let i = 0
+        function getid() {
+            fetch(`/tdbyindex/${i}`)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! Status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    i+=1;
+                    // var listContainer = document.getElementById("listContainer");
+
+                 
+                    // listContainer.innerHTML = "";
+
+                   
+                    //     var listItem = document.createElement("li");
+                    //     listItem.textContent = data[i];
+                    //     listContainer.appendChild(listItem);
+                    
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
+        }
+
+
+        // function sendApi(){
+        //     fetch(`/td/64f870a76e38e3e44829bc5c`).then(res=>{
+        //         console.log(res)
+        //     }).catch(err=>{
+        //         console.log('error', err)
+        //     })
+        // }
+    </script>
+</body>
+
+</html>
