@@ -12,22 +12,7 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-# @app.route("/td", methods=["GET", "POST"])
-# def getID():
-#     ent = list(ents.find({"docbin":False}))
-#     txtArray = []
-#     entitesArray = []
-#     dict = {}
 
-
-#     for i in ent:
-#         text = i["text"]
-#         txtArray.append(text)
-#         entities = i["entities"]
-#         entitesArray.append(entities)
-
-#     dict.update()
-#     return jsonify(txtArray)
     
 
 @app.route("/td/<id>")
