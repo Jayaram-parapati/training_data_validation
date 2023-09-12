@@ -82,53 +82,48 @@
             td = data[0];
             text = td["text"];
             ents = td["entities"];
-
+            text_container.innerHTML = text;
             document.querySelector("#text_orig").innerText = text;
+            document.querySelector("#entities").innerHTML = JSON.stringify(ents);
+
             let text1 = text;
-            for (i = 0; i < ents.length; i++) {
-              let eachEnt = ents[i];
-              let start = eachEnt[0];
-              let end = eachEnt[1];
-              let entity = text.slice(start, end);
-
-              if (entity.trim() != "" && entity.length > 1) {
-                text1 =
-                  text1.substring(0, start) +
-                  `<span class='hilight'> ${entity} </span>` +
-                  text1.substring(end, text1.length);
-              } else {
-                console.log("Skipping ....", entity);
-              }
-            }
             entsHTML = "";
-            for (ent of ents) {
-              entsHTML += `<li class="list-group-item">${JSON.stringify(
-                ent
-              )}</li>`;
-            }
-            document.querySelector("#entities").innerHTML = entsHTML;
-            text_container.innerHTML = text1;
-            for(i in ents){
-                for(j=i+1;j<ents.length-1-i;j++){
-                if(ents[j][0]>ents[i][0]&&ents[j][0]<ents[i][1]){
-                    console.log("overlapping "+ents[j][0])
-                }else{
-                    console.log("Not overlapping "+ ents[j][0])
+
+            for(ent1 of ents){
+              for(ent2 of ents){
+                // console.log(ent1, ent2)
+                // (ents[j][0] > ents[i][0] && ents[j][0] < ents[i][1]) ||
+                //   (ents[j][1] > ents[i][0] && ents[j][1] < ents[i][1])
+                if(ent1[0]>ent2[0] && ent1[0]<ent2[1] || ent1[1]>ent2[0] && ent1[1]<ent2[1]){
+
+                  console.log("overlapping "+ ent1)
+
                 }
-                
-                
-
-            }}
+                else{
+                  console.log("no overlapping "+ ent1)
+                }
+              }
 
             }
-          )
+
+
+           
+          })
           .catch((error) => {
             console.log("Fetch error:", error);
           });
-        }
+      }
     </script>
     <style>
       .hilight {
+        background-color: blue;
+        color: white;
+      }
+      .hilight1 {
+        background-color: green;
+        color: white;
+      }
+      .hilight2 {
         background-color: red;
         color: white;
       }
